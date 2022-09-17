@@ -13,9 +13,7 @@ pub const HEIGHT: f64 = 480.;
 pub const WIDTH: f64 = 640.;
 pub const GROUND_Y: f64 = HEIGHT * 0.75;
 pub const WALL_X: f64 = WIDTH / 6.;
-pub const DIGITS: u32 = 2;
-pub const TIME_STEPS: usize = 2usize.pow(DIGITS * 4);
-
+pub const DIGITS: u32 = 5;
 fn main() {
     unsafe {
         let (mut rl, thread) = raylib::init()
@@ -36,12 +34,14 @@ fn main() {
         let mut bounces = 0;
 
         // let mut last_update = time::Instant::now();
+        let mut i: u32 = 0;
         while !rl.window_should_close() {
+            i += 1;
             // let delta = (time::Instant::now() - last_update).as_secs_f32();
             let delta = 0.001;
             // last_update = time::Instant::now();
 
-            let time_steps = if DIGITS > 2 { TIME_STEPS } else { 1 };
+            let time_steps = (i / 100).pow(DIGITS - 1);
             let mut bounced = false;
 
             for _ in 0..time_steps {
